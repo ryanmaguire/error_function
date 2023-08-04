@@ -21,7 +21,7 @@ make CC=clang
 ```
 And add extra flags if you want.
 ```sh
-make CC=clang Extra_Flags=-Weverythin
+make CC=clang Extra_Flags=-Weverything
 ```
 
 A small Python wrapper is available with `numpy` support so you can plot the
