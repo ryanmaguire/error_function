@@ -26,7 +26,7 @@ make CC=clang Extra_Flags=-Weverythin
 
 A small Python wrapper is available with `numpy` support so you can plot the
 functions with `matplotlib`. To build this make sure `numpy` and `python3`
-are installed. After building and installing `libtmpl, type
+are installed. After building and installing `libtmpl`, type
 ```sh
 python3 setup.py build_ext --inplace
 ```
