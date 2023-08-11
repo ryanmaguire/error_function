@@ -25,8 +25,11 @@ import numpy
 srclist = [
     "src/setup.c",
     "src/erf_abramowitz_and_stegun_double.c",
-    "src/erf_abromowitz_and_stegun_float.c",
-    "src/erf_abromowitz_and_stegun_ldouble.c",
+    "src/erf_abramowitz_and_stegun_float.c",
+    "src/erf_abramowitz_and_stegun_ldouble.c",
+    "src/erf_abramowitz_and_stegun_rational_double.c",
+    "src/erf_abramowitz_and_stegun_rational_float.c",
+    "src/erf_abramowitz_and_stegun_rational_ldouble.c",
     "src/erf_winitzki_double.c",
     "src/erf_winitzki_float.c",
     "src/erf_winitzki_ldouble.c"

@@ -240,6 +240,16 @@ static PyObject *abramowitz_and_stegun(PyObject *self, PyObject *args)
     return Get_Func_From_C(self, args, &c_funcs);
 }
 
+static PyObject *abramowitz_and_stegun_rational(PyObject *self, PyObject *args)
+{
+    Generic_Function c_funcs;
+    c_funcs.float_func = Erf_Float_Abramowitz_and_Stegun_Rational;
+    c_funcs.double_func = Erf_Double_Abramowitz_and_Stegun_Rational;
+    c_funcs.ldouble_func = Erf_LDouble_Abramowitz_and_Stegun_Rational;
+    c_funcs.func_name = "abramowitz_and_stegun_rational";
+    return Get_Func_From_C(self, args, &c_funcs);
+}
+
 static PyObject *error_function(PyObject *self, PyObject *args)
 {
     Generic_Function c_funcs;
@@ -265,6 +275,11 @@ static PyMethodDef erfpy_methods[] =
     {
         "abramowitz_and_stegun", abramowitz_and_stegun, METH_VARARGS,
         "\rComputes erf(x) using the exponential approximation in A&S.\n\r"
+    },
+    {
+        "abramowitz_and_stegun_rational",
+        abramowitz_and_stegun_rational, METH_VARARGS,
+        "\rComputes erf(x) using the rational approximation in A&S.\n\r"
     },
     {
         "erf", error_function, METH_VARARGS,

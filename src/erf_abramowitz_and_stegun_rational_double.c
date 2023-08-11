@@ -17,21 +17,39 @@
  *  along with error_function.  If not, see <https://www.gnu.org/licenses/>.  *
  ******************************************************************************/
 
-/*  Include guard to prevent including this file twice.                       */
-#ifndef ERROR_FUNCTION_H
-#define ERROR_FUNCTION_H
+/*  Absolute value function provided here.                                    */
+#include <libtmpl/include/tmpl_math.h>
 
-extern double Erf_Double_Abramowitz_and_Stegun(double x);
-extern float Erf_Float_Abramowitz_and_Stegun(float x);
-extern long double Erf_LDouble_Abramowitz_and_Stegun(long double x);
+/*  Function prototype provided here.                                         */
+#include "error_function.h"
 
-extern double Erf_Double_Abramowitz_and_Stegun_Rational(double x);
-extern float Erf_Float_Abramowitz_and_Stegun_Rational(float x);
-extern long double Erf_LDouble_Abramowitz_and_Stegun_Rational(long double x);
+/*  Coefficients from Abramowitz and Stegun.                                  */
+#define A0 (1.0000000000)
+#define A1 (0.0705230784)
+#define A2 (0.0422820123)
+#define A3 (0.0092705272)
+#define A4 (0.0001520143)
+#define A5 (0.0002765672)
+#define A6 (0.0000430638)
 
-extern double Erf_Double_Winitzki(double x);
-extern float Erf_Float_Winitzki(float x);
-extern long double Erf_LDouble_Winitzki(long double x);
+double Erf_Double_Abramowitz_and_Stegun_Rational(double x)
+{
+    double p, z;
 
-#endif
-/*  End of include guard.                                                     */
+    if (x > 6.0)
+        return 1.0;
+    else if (x < -6.0)
+        return - 1.0;
+
+    z = tmpl_Double_Abs(x);
+    p = 1.0 / (A0 + z*(A1 + z*(A2 + z*(A3 + z*(A4 + z*(A5 + z*A6))))));
+    p = p*p;
+    p = p*p;
+    p = p*p;
+    p = p*p;
+
+    if (x < 0.0)
+        return p - 1.0;
+
+    return 1.0 - p;
+}

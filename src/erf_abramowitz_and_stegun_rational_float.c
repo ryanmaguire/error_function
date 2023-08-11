@@ -17,21 +17,39 @@
  *  along with error_function.  If not, see <https://www.gnu.org/licenses/>.  *
  ******************************************************************************/
 
-/*  Include guard to prevent including this file twice.                       */
-#ifndef ERROR_FUNCTION_H
-#define ERROR_FUNCTION_H
+/*  Absolute value function provided here.                                    */
+#include <libtmpl/include/tmpl_math.h>
 
-extern double Erf_Double_Abramowitz_and_Stegun(double x);
-extern float Erf_Float_Abramowitz_and_Stegun(float x);
-extern long double Erf_LDouble_Abramowitz_and_Stegun(long double x);
+/*  Function prototype provided here.                                         */
+#include "error_function.h"
 
-extern double Erf_Double_Abramowitz_and_Stegun_Rational(double x);
-extern float Erf_Float_Abramowitz_and_Stegun_Rational(float x);
-extern long double Erf_LDouble_Abramowitz_and_Stegun_Rational(long double x);
+/*  Coefficients from Abramowitz and Stegun.                                  */
+#define A0 (1.0000000000F)
+#define A1 (0.0705230784F)
+#define A2 (0.0422820123F)
+#define A3 (0.0092705272F)
+#define A4 (0.0001520143F)
+#define A5 (0.0002765672F)
+#define A6 (0.0000430638F)
 
-extern double Erf_Double_Winitzki(double x);
-extern float Erf_Float_Winitzki(float x);
-extern long double Erf_LDouble_Winitzki(long double x);
+float Erf_Float_Abramowitz_and_Stegun_Rational(float x)
+{
+    float p, z;
 
-#endif
-/*  End of include guard.                                                     */
+    if (x > 6.0F)
+        return 1.0F;
+    else if (x < -6.0F)
+        return - 1.0F;
+
+    z = tmpl_Float_Abs(x);
+    p = 1.0F / (A0 + z*(A1 + z*(A2 + z*(A3 + z*(A4 + z*(A5 + z*A6))))));
+    p = p*p;
+    p = p*p;
+    p = p*p;
+    p = p*p;
+
+    if (x < 0.0F)
+        return p - 1.0F;
+
+    return 1.0F - p;
+}
