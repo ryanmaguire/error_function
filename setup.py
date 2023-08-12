@@ -19,29 +19,23 @@
 ################################################################################
 """
 
-import distutils.core
+import os
+import setuptools
 import numpy
 
-srclist = [
-    "src/setup.c",
-    "src/erf_abramowitz_and_stegun_double.c",
-    "src/erf_abramowitz_and_stegun_float.c",
-    "src/erf_abramowitz_and_stegun_ldouble.c",
-    "src/erf_abramowitz_and_stegun_rational_double.c",
-    "src/erf_abramowitz_and_stegun_rational_float.c",
-    "src/erf_abramowitz_and_stegun_rational_ldouble.c",
-    "src/erf_winitzki_double.c",
-    "src/erf_winitzki_float.c",
-    "src/erf_winitzki_ldouble.c"
-]
+srclist = []
 
-distutils.core.setup(
+for file in os.listdir("src/"):
+    if file[-1] == "c":
+        srclist.append("src/" + file)
+
+setuptools.setup(
     name = 'erfpy',
     version = '0.1',
     description = 'Various algorithms for the real-valued error function',
     author='Ryan Maguire',
     ext_modules = [
-        distutils.core.Extension(
+        setuptools.Extension(
             'erfpy',
             srclist,
             include_dirs = [numpy.get_include()],

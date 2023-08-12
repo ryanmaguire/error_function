@@ -250,6 +250,16 @@ static PyObject *abramowitz_and_stegun_rational(PyObject *self, PyObject *args)
     return Get_Func_From_C(self, args, &c_funcs);
 }
 
+static PyObject *karagiannidis_and_lioumpas(PyObject *self, PyObject *args)
+{
+    Generic_Function c_funcs;
+    c_funcs.float_func = Erf_Float_Karagiannidis_and_Lioumpas;
+    c_funcs.double_func = Erf_Double_Karagiannidis_and_Lioumpas;
+    c_funcs.ldouble_func = Erf_LDouble_Karagiannidis_and_Lioumpas;
+    c_funcs.func_name = "karagiannidis_and_lioumpas";
+    return Get_Func_From_C(self, args, &c_funcs);
+}
+
 static PyObject *error_function(PyObject *self, PyObject *args)
 {
     Generic_Function c_funcs;
@@ -280,6 +290,10 @@ static PyMethodDef erfpy_methods[] =
         "abramowitz_and_stegun_rational",
         abramowitz_and_stegun_rational, METH_VARARGS,
         "\rComputes erf(x) using the rational approximation in A&S.\n\r"
+    },
+    {
+        "karagiannidis_and_lioumpas", karagiannidis_and_lioumpas, METH_VARARGS,
+        "\rComputes erf(x) using the approximation in K&L.\n\r"
     },
     {
         "erf", error_function, METH_VARARGS,

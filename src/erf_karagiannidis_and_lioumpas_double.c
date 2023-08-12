@@ -17,25 +17,37 @@
  *  along with error_function.  If not, see <https://www.gnu.org/licenses/>.  *
  ******************************************************************************/
 
-/*  Include guard to prevent including this file twice.                       */
-#ifndef ERROR_FUNCTION_H
-#define ERROR_FUNCTION_H
+/*  Absolute value and exponential function provided here.                    */
+#include <libtmpl/include/tmpl_math.h>
 
-extern double Erf_Double_Abramowitz_and_Stegun(double x);
-extern float Erf_Float_Abramowitz_and_Stegun(float x);
-extern long double Erf_LDouble_Abramowitz_and_Stegun(long double x);
+/*  Function prototype provided here.                                         */
+#include "error_function.h"
 
-extern double Erf_Double_Abramowitz_and_Stegun_Rational(double x);
-extern float Erf_Float_Abramowitz_and_Stegun_Rational(float x);
-extern long double Erf_LDouble_Abramowitz_and_Stegun_Rational(long double x);
+/*  Coefficients from Karagiannidis and Lioumpas approximation.               */
+#define A (-1.9800000000000000000000000000000000000000E+00)
+#define B (+2.0117351207777607067259726964788258592758E+00)
 
-extern double Erf_Double_Karagiannidis_and_Lioumpas(double x);
-extern float Erf_Float_Karagiannidis_and_Lioumpas(float x);
-extern long double Erf_LDouble_Karagiannidis_and_Lioumpas(long double x);
+/*  Approximation of erf(x) using the exponential function.                   */
+double Erf_Double_Karagiannidis_and_Lioumpas(double x)
+{
+    /*  The function is odd in x so compute abs_x and use this.               */
+    const double abs_x = tmpl_Double_Abs(x);
 
-extern double Erf_Double_Winitzki(double x);
-extern float Erf_Float_Winitzki(float x);
-extern long double Erf_LDouble_Winitzki(long double x);
+    /*  Compute the factors from K & L.                                       */
+    const double exp_A_x = tmpl_Double_Exp(A * abs_x);
+    const double exp_minus_x2 = tmpl_Double_Exp(-abs_x * abs_x);
+    const double scale = exp_minus_x2 / (B * abs_x);
+    const double erf_abs_x = 1.0 - (1.0 - exp_A_x) * scale;
 
-#endif
-/*  End of include guard.                                                     */
+    /*  The error function is odd. Return -erf_x for negative x.              */
+    if (x < 0.0)
+        return -erf_abs_x;
+
+    /*  Otherwise we have a decent approximation for erf(x). Return this.     */
+    return erf_abs_x;
+}
+/*  End of Erf_Double_Karagiannidis_and_Lioumpas.                             */
+
+/*  Undefine everything in case someone wants to #include this file.          */
+#undef A
+#undef B
