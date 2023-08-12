@@ -33,6 +33,10 @@ extern double Erf_Double_Karagiannidis_and_Lioumpas(double x);
 extern float Erf_Float_Karagiannidis_and_Lioumpas(float x);
 extern long double Erf_LDouble_Karagiannidis_and_Lioumpas(long double x);
 
+extern double Erf_Double_Numerical_Recipes(double x);
+extern float Erf_Float_Numerical_Recipes(float x);
+extern long double Erf_LDouble_Numerical_Recipes(long double x);
+
 extern double Erf_Double_Winitzki(double x);
 extern float Erf_Float_Winitzki(float x);
 extern long double Erf_LDouble_Winitzki(long double x);

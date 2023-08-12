@@ -270,6 +270,16 @@ static PyObject *error_function(PyObject *self, PyObject *args)
     return Get_Func_From_C(self, args, &c_funcs);
 }
 
+static PyObject *numerical_recipes(PyObject *self, PyObject *args)
+{
+    Generic_Function c_funcs;
+    c_funcs.float_func = Erf_Float_Numerical_Recipes;
+    c_funcs.double_func = Erf_Double_Numerical_Recipes;
+    c_funcs.ldouble_func = Erf_LDouble_Numerical_Recipes;
+    c_funcs.func_name = "numerical_recipes";
+    return Get_Func_From_C(self, args, &c_funcs);
+}
+
 static PyObject *winitzki(PyObject *self, PyObject *args)
 {
     Generic_Function c_funcs;
@@ -298,6 +308,10 @@ static PyMethodDef erfpy_methods[] =
     {
         "erf", error_function, METH_VARARGS,
         "\rComputes erf(x) using libtmpl.\n\r"
+    },
+    {
+        "numerical_recipes", numerical_recipes, METH_VARARGS,
+        "\rComputes erf(x) using the algorithm in Numerical Recipes.\n\r"
     },
     {
         "winitzki", winitzki, METH_VARARGS,
