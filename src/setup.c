@@ -283,7 +283,7 @@ static PyObject *numerical_recipes(PyObject *self, PyObject *args)
 static PyObject *sun(PyObject *self, PyObject *args)
 {
     Generic_Function c_funcs;
-    c_funcs.float_func = NULL;
+    c_funcs.float_func = Erf_Float_Sun;
     c_funcs.double_func = Erf_Double_Sun;
     c_funcs.ldouble_func = NULL;
     c_funcs.func_name = "sun";
