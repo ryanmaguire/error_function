@@ -280,6 +280,16 @@ static PyObject *numerical_recipes(PyObject *self, PyObject *args)
     return Get_Func_From_C(self, args, &c_funcs);
 }
 
+static PyObject *sun(PyObject *self, PyObject *args)
+{
+    Generic_Function c_funcs;
+    c_funcs.float_func = NULL;
+    c_funcs.double_func = Erf_Double_Sun;
+    c_funcs.ldouble_func = NULL;
+    c_funcs.func_name = "sun";
+    return Get_Func_From_C(self, args, &c_funcs);
+}
+
 static PyObject *winitzki(PyObject *self, PyObject *args)
 {
     Generic_Function c_funcs;
@@ -312,6 +322,10 @@ static PyMethodDef erfpy_methods[] =
     {
         "numerical_recipes", numerical_recipes, METH_VARARGS,
         "\rComputes erf(x) using the algorithm in Numerical Recipes.\n\r"
+    },
+    {
+        "sun", sun, METH_VARARGS,
+        "\rComputes erf(x) using the algorithm in Sun's libm.\n\r"
     },
     {
         "winitzki", winitzki, METH_VARARGS,
