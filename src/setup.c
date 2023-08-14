@@ -285,7 +285,7 @@ static PyObject *sun(PyObject *self, PyObject *args)
     Generic_Function c_funcs;
     c_funcs.float_func = Erf_Float_Sun;
     c_funcs.double_func = Erf_Double_Sun;
-    c_funcs.ldouble_func = NULL;
+    c_funcs.ldouble_func = Erf_LDouble_Sun;
     c_funcs.func_name = "sun";
     return Get_Func_From_C(self, args, &c_funcs);
 }
